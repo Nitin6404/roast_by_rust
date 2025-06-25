@@ -1,0 +1,15 @@
+[package]
+name = "roast_wasm"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+wasm-bindgen = "0.2"
+rand = "0.8"
+
+# 👇 This is the key fix: patch `getrandom` to use the "js" feature
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+getrandom = { version = "0.2", features = ["js"] }
